@@ -72,20 +72,34 @@ def ModelTrain(train_df_path, val_df_path, path_image, ModelType, CriterionType,
         batch_size=batch_size, shuffle=True, num_workers=workers, pin_memory=True)
 
     if ModelType == 'densenet':
-        model = models.densenet121(pretrained=True)
+        model = models.densenet121(pretrained=False)
         num_ftrs = model.classifier.in_features
 
 
         model.classifier = nn.Sequential(nn.Linear(num_ftrs, N_LABELS), nn.Sigmoid())
     
     if ModelType == 'ResNet50':
-        model = ResNet50NN()
+        # model = models.resnet50(pretrained=True)
+        model = torch.hub.load('pytorch/vision:v0.9.0', 'resnet50', pretrained=False)
+        num_ftrs = model.fc.in_features
+        print(num_ftrs)
+        print(N_LABELS)
+        model.classifier = nn.Sequential(nn.Linear(num_ftrs, N_LABELS), nn.Sigmoid())
+        # model = ResNet50NN()
 
     if ModelType == 'ResNet34':
-        model = ResNet34NN()
+        model = torch.hub.load('pytorch/vision:v0.9.0', 'resnet34', pretrained=True)
+        num_ftrs = model.fc.in_features
+        print(num_ftrs)
+        print(N_LABELS)
+        model.classifier = nn.Sequential(nn.Linear(num_ftrs, N_LABELS), nn.Sigmoid())
 
     if ModelType == 'ResNet18':
-        model = ResNet18NN()
+        model = torch.hub.load('pytorch/vision:v0.9.0', 'resnet18', pretrained=True)
+        num_ftrs = model.fc.in_features
+        print(num_ftrs)
+        print(N_LABELS)
+        model.classifier = nn.Sequential(nn.Linear(num_ftrs, N_LABELS), nn.Sigmoid())
         
 
     if ModelType == 'Resume':
