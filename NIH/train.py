@@ -16,7 +16,6 @@ from dataset import NIH
 from utils import *
 from batchiterator import *
 from tqdm import tqdm
-from ResNetModel import *
 import random
 import numpy as np
 

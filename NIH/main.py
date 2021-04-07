@@ -4,7 +4,6 @@ from train import *
 from LearningCurve import *
 from predictions import *
 from nih import *
-from Actual_TPR import Actual_TPR
 
 import pandas as pd
 
