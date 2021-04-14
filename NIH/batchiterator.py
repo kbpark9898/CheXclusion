@@ -22,13 +22,6 @@ def BatchIterator(model, phase,
 
     print_freq = 1000
     running_loss = 0.0
-    print(Data_loader)
-
-    for i in Data_loader:
-        print(i)
-
-    for i, data in enumerate(Data_loader):
-        print("index : {}, value: {}".format(i,data))
 
     for i, data in enumerate(Data_loader):
 
