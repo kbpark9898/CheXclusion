@@ -30,7 +30,7 @@ def ModelTrain(train_df_path, val_df_path, path_image, ModelType, CriterionType,
     workers = 12  # mean: how many subprocesses to use for data loading.
     N_LABELS = 14
     start_epoch = 0
-    num_epochs = 64  # number of epochs to train for (if early stopping is not triggered)
+    num_epochs = 10  # number of epochs to train for (if early stopping is not triggered)
 
     val_df = pd.read_csv(val_df_path)
     val_df_size = len(val_df)
@@ -87,14 +87,14 @@ def ModelTrain(train_df_path, val_df_path, path_image, ModelType, CriterionType,
         # model = ResNet50NN()
 
     if ModelType == 'ResNet34':
-        model = torch.hub.load('pytorch/vision:v0.9.0', 'resnet34', pretrained=True)
+        model = torch.hub.load('pytorch/vision:v0.9.0', 'resnet34', pretrained=False)
         num_ftrs = model.fc.in_features
         print(num_ftrs)
         print(N_LABELS)
         model.classifier = nn.Sequential(nn.Linear(num_ftrs, N_LABELS), nn.Sigmoid())
 
     if ModelType == 'ResNet18':
-        model = torch.hub.load('pytorch/vision:v0.9.0', 'resnet18', pretrained=True)
+        model = torch.hub.load('pytorch/vision:v0.9.0', 'resnet18', pretrained=False)
         num_ftrs = model.fc.in_features
         print(num_ftrs)
         print(N_LABELS)

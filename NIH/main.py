@@ -8,11 +8,11 @@ from nih import *
 import pandas as pd
 
 #---------------------- on q
-path_image = "/scratch/gobi2/projects/ml4h/datasets/NIH/images/"
+path_image = "/root/share/images"
 
-train_df_path ="/scratch/gobi2/projects/ml4h/datasets/NIH/split/July16/train.csv"
-test_df_path = "/scratch/gobi2/projects/ml4h/datasets/NIH/split/July16/test.csv"
-val_df_path = "/scratch/gobi2/projects/ml4h/datasets/NIH/split/July16/valid.csv"
+train_df_path ="/workspace/CheXclusion/dataset_csv/train_df.csv"
+test_df_path = "/workspace/CheXclusion/dataset_csv/test_df.csv"
+val_df_path = "/workspace/CheXclusion/dataset_csv/valid_df.csv"
 
 
 diseases = ['Atelectasis', 'Cardiomegaly', 'Consolidation', 'Edema',
@@ -24,7 +24,7 @@ gender = ['M', 'F']
 
 def main():
 
-    MODE = "plot"  # Select "train" or "test", "Resume", "plot", "Threshold", "plot15"
+    MODE = "train"  # Select "train" or "test", "Resume", "plot", "Threshold", "plot15"
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
