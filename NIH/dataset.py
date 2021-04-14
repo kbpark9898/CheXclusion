@@ -2,9 +2,9 @@ import torch
 from torch.utils.data import Dataset
 import os
 import numpy as np
-from scipy.misc.pilutil import imread
+#from scipy.misc.pilutil import imread
 from PIL import Image
-
+from imageio import imread
 
 class NIH(Dataset):
     def __init__(self, dataframe, path_image, finding="any", transform=None):
@@ -25,9 +25,9 @@ class NIH(Dataset):
                 print("cannot filter on finding " + finding +
                       " as not in data - please check spelling")
         self.PRED_LABEL = [
+            'Effusion',
             'Atelectasis',
             'Cardiomegaly',
-            'Effusion',
             'Infiltration',
             'Mass',
             'Nodule',
@@ -38,11 +38,11 @@ class NIH(Dataset):
             'Emphysema',
             'Fibrosis',
             'Pleural_Thickening',
-            'Hernia']
-
+            'Hernia',
+            'No Finding']
+        
     def __getitem__(self, idx):
         item = self.dataframe.iloc[idx]
-
         img = imread(os.path.join(self.path_image, item["Image Index"]))
         
         
@@ -61,8 +61,9 @@ class NIH(Dataset):
         label = torch.FloatTensor(np.zeros(len(self.PRED_LABEL), dtype=float))
         
         for i in range(0, len(self.PRED_LABEL)):
-            if (self.dataframe[self.PRED_LABEL[i].strip()].iloc[idx].astype('float') > 0):
-                label[i] = self.dataframe[self.PRED_LABEL[i].strip()].iloc[idx].astype('float')
+            temp = self.dataframe['Finding Labels'] == self.PRED_LABEL[i].strip()
+            if (temp.iloc[idx].astype('float') > 0):
+                label[i] = temp.iloc[idx].astype('float')
 #-------------------------------------------------------------------------           
 #         if img.shape == (3, 256, 256):           
 #             img = torch.FloatTensor(img / 255.0)
