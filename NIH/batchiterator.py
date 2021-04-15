@@ -42,7 +42,7 @@ def BatchIterator(model, phase,
             with torch.no_grad():
                 outputs = model(imgs)
 
-
+        print(outputs.shape)
         loss = criterion(outputs, labels)
 
         if phase == 'train':

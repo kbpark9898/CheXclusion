@@ -47,7 +47,7 @@ def main():
 
         model, best_epoch = ModelTrain(train_df_path, val_df_path, path_image, ModelType, CriterionType, device,LR)
 
-        PlotLearnignCurve()
+        # PlotLearnignCurve()
 
 
     if MODE =="test":
@@ -67,7 +67,7 @@ def main():
 
         model, best_epoch = ModelTrain(train_df_path, val_df_path, path_image, result_path, ModelType, CriterionType, device,LR)
 
-        PlotLearnignCurve()
+        # PlotLearnignCurve()
 
     if MODE == "plot":
         gt = pd.read_csv("./results/True.csv")
