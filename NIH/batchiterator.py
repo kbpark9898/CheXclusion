@@ -47,8 +47,9 @@ def BatchIterator(model, phase,
                 outputs = model(imgs)
 
         print("first: ",outputs.shape)
-        zero_append = torch.FloatTensor([0 for i in range(32)])
-        outputs=torch.stack([outputs, zero_append], dim=1)
+        zero_append = torch.FloatTensor([[0] for i in range(32)])
+        zero_append = zero_append.to(device)
+        outputs=torch.cat([outputs, zero_append], dim=1)
         print("second: ", outputs.shape)
         loss = criterion(outputs, labels)
 
