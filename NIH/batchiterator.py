@@ -42,7 +42,10 @@ def BatchIterator(model, phase,
             with torch.no_grad():
                 outputs = model(imgs)
 
-        print(outputs.shape)
+        print("first: ",outputs.shape)
+        zero_append = torch.FloatTensor([0 for i in range(32)])
+        outputs=torch.stack([outputs, zero_append], dim=1)
+        print("second: ", outputs.shape)
         loss = criterion(outputs, labels)
 
         if phase == 'train':
