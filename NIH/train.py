@@ -131,7 +131,7 @@ def ModelTrain(train_df_path, val_df_path, path_image, ModelType, CriterionType,
 
         phase = 'train'
         optimizer = torch.optim.Adam(params=filter(lambda p: p.requires_grad, model.parameters()), lr=LR)
-        running_loss = BatchIterator(model=model, phase=phase, Data_loader=train_loader, criterion=criterion, optimizer=optimizer, device=device)
+        running_loss = BatchIterator(model=model, phase=phase, Data_loader=train_loader, criterion=criterion, optimizer=optimizer, device=device, epoch=epoch)
         epoch_loss_train = running_loss / train_df_size
         epoch_losses_train.append(epoch_loss_train.item())
         print("Train_losses:", epoch_losses_train)

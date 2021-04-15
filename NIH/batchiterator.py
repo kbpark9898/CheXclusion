@@ -7,14 +7,15 @@ import numpy as np
 
 
 
-
+PRINTFREQ=10
 
 
 def BatchIterator(model, phase,
         Data_loader,
         criterion,
         optimizer,
-        device):
+        device,
+        epoch):
 
 
     # --------------------  Initial paprameterd
@@ -24,6 +25,9 @@ def BatchIterator(model, phase,
     running_loss = 0.0
 
     for i, data in enumerate(Data_loader):
+        top1 = AverageMeter('Acc@1', ':6.2f')
+        progress = ProgressMeter(len(Data_loader),
+                                top1, prefix="Epoch: [{}]".format(epoch))
 
 
         imgs, labels, _ = data
@@ -54,12 +58,14 @@ def BatchIterator(model, phase,
             if grad_clip is not None:
                 clip_gradient(optimizer, grad_clip)
             optimizer.step()  # update weights
-
+            if i % PRINTFREQ == 0:
+                progress.print(i)
         running_loss += loss * batch_size
         if (i % 200 == 0):
             print(str(i * batch_size))
 
 
 
-
+    print('=> Acc@1 {top1.avg:.3f}'
+          .format(top1=top1))
     return running_loss
