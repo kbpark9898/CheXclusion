@@ -25,7 +25,7 @@ def BatchIterator(model, phase,
     running_loss = 0.0
 
     for i, data in enumerate(Data_loader):
-        top1 = AverageMeter('Acc@1', ':6.2f')
+        top1 = AverageMeter_str('Acc@1', ':6.2f')
         progress = ProgressMeter(len(Data_loader),
                                 top1, prefix="Epoch: [{}]".format(epoch))
 
